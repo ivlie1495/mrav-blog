@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { PropsWithChildren } from 'react'
 
+import AccountMenu from './components/account-menu'
 import NavLinks from './components/nav-links'
 import ThemeToggle from './components/theme-toggle'
 
@@ -23,8 +24,9 @@ const Layout = ({ children }: PropsWithChildren) => {
       </div>
       <div className="flex flex-col">
         <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-          <div className="ml-auto flex items-center gap-x-5">
+          <div className="ml-auto flex items-center gap-x-4">
             <ThemeToggle />
+            <AccountMenu />
           </div>
         </header>
       </div>
