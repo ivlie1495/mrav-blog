@@ -8,7 +8,7 @@ export const links = [
   },
   {
     name: 'Sites',
-    href: '/sites',
+    href: '/dashboard/sites',
     icon: Globe,
   },
   {
