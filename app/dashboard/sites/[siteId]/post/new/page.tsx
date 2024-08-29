@@ -24,6 +24,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { UploadDropzone } from '@/components/uploadthing'
+import { useToast } from '@/components/ui/use-toast'
 
 interface Props {
   params: {
@@ -34,6 +35,7 @@ interface Props {
 const CreatePostPage = ({ params }: Props) => {
   const { siteId } = params
 
+  const { toast } = useToast()
   const form = useForm()
 
   const onSubmit = async () => {}
@@ -128,9 +130,17 @@ const CreatePostPage = ({ params }: Props) => {
                           className="border-border"
                           onClientUploadComplete={(res) => {
                             field.onChange(res[0].url)
+                            toast({
+                              title: 'Image uploaded',
+                              description: 'Your image has been uploaded',
+                            })
                           }}
                           onUploadError={() => {
-                            throw new Error('Upload failed...')
+                            toast({
+                              title: 'Upload failed',
+                              description: 'Something went wrong...',
+                              variant: 'destructive',
+                            })
                           }}
                         />
                       </FormControl>

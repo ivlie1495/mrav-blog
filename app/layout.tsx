@@ -5,6 +5,7 @@ import { NextSSRPlugin } from '@uploadthing/react/next-ssr-plugin'
 
 import { ourFileRouter } from '@/app/api/uploadthing/core'
 import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/toaster'
 
 import './globals.css'
 
@@ -39,6 +40,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>
