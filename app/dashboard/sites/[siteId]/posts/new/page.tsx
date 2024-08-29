@@ -25,6 +25,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { UploadDropzone } from '@/components/uploadthing'
 import { useToast } from '@/components/ui/use-toast'
+import NovelEditor from '@/components/novel-editor'
 
 interface Props {
   params: {
@@ -149,6 +150,25 @@ const CreatePostPage = ({ params }: Props) => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="postContent"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Post Content</FormLabel>
+                    <FormControl>
+                      <NovelEditor
+                        initialValue={field.value}
+                        onChange={field.onChange}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type="submit" className="w-fit">
+                Submit
+              </Button>
             </form>
           </Form>
         </CardContent>
