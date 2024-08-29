@@ -2,6 +2,7 @@
 
 import { ArrowLeft, Atom } from 'lucide-react'
 import { useForm } from 'react-hook-form'
+import Image from 'next/image'
 import Link from 'next/link'
 
 import { Button } from '@/components/ui/button'
@@ -22,6 +23,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
+import { UploadDropzone } from '@/components/uploadthing'
 
 interface Props {
   params: {
@@ -101,6 +103,38 @@ const CreatePostPage = ({ params }: Props) => {
                         {...field}
                       />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="image"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Image</FormLabel>
+                    {field.value ? (
+                      <Image
+                        src={field.value}
+                        alt="Uploaded Image"
+                        className="h-[200px] w-[200px] rounded-lg object-cover"
+                        width={200}
+                        height={200}
+                      />
+                    ) : (
+                      <FormControl>
+                        <UploadDropzone
+                          endpoint="imageUpload"
+                          className="border-border"
+                          onClientUploadComplete={(res) => {
+                            field.onChange(res[0].url)
+                          }}
+                          onUploadError={() => {
+                            throw new Error('Upload failed...')
+                          }}
+                        />
+                      </FormControl>
+                    )}
                     <FormMessage />
                   </FormItem>
                 )}
