@@ -56,12 +56,12 @@ const SiteNewPage = () => {
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <CardContent>
-              <div className="flex flex-col gap-y-6">
+              <div className="flex flex-col gap-4">
                 <FormField
                   control={form.control}
                   name="name"
                   render={({ field }) => (
-                    <FormItem className="grid gap-2">
+                    <FormItem>
                       <FormLabel>Name</FormLabel>
                       <FormControl>
                         <Input placeholder="Site Name" {...field} />
@@ -74,7 +74,7 @@ const SiteNewPage = () => {
                   control={form.control}
                   name="subdirectory"
                   render={({ field }) => (
-                    <FormItem className="grid gap-2">
+                    <FormItem>
                       <FormLabel>Subdirectory</FormLabel>
                       <FormControl>
                         <Input placeholder="Subdirectory" {...field} />
@@ -87,7 +87,7 @@ const SiteNewPage = () => {
                   control={form.control}
                   name="description"
                   render={({ field }) => (
-                    <FormItem className="grid gap-2">
+                    <FormItem>
                       <FormLabel>Description</FormLabel>
                       <FormControl>
                         <Textarea

@@ -1,7 +1,7 @@
 import { getSiteListAction } from '@/actions/sites'
 
-import CreateSite from './components/create-site'
 import CreateSiteButton from './components/create-site-button'
+import SiteEmpty from './components/site-empty'
 import SiteList from './components/site-list'
 
 const SitesPage = async () => {
@@ -13,7 +13,7 @@ const SitesPage = async () => {
         <CreateSiteButton />
       </div>
       {data === undefined || data.length === 0 ? (
-        <CreateSite />
+        <SiteEmpty />
       ) : (
         <SiteList data={data} />
       )}

@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { getPostList } from '@/actions/posts'
 import { Button } from '@/components/ui/button'
 
+import PostEmpty from './components/post-empty'
+
 interface Props {
   params: {
     siteId: string
@@ -30,17 +32,13 @@ const SiteDetailPage = async ({ params }: Props) => {
           </Link>
         </Button>
         <Button asChild>
-          <Link href="#">
+          <Link href={`/dashboard/sites/${siteId}/post/new`}>
             <PlusCircle className="mr-2 size-4" />
-            Create Article
+            Create Post
           </Link>
         </Button>
       </div>
-      {data === undefined || data.length === 0 ? (
-        <h1>Empty</h1>
-      ) : (
-        <h1>Hello</h1>
-      )}
+      {data === undefined || data.length === 0 ? <PostEmpty /> : <h1>Hello</h1>}
     </>
   )
 }
