@@ -2,7 +2,11 @@ import { FileIcon } from 'lucide-react'
 
 import CreatePostButton from './create-post-button'
 
-const PostEmpty = () => {
+interface Props {
+  siteId: string
+}
+
+const PostEmpty = ({ siteId }: Props) => {
   return (
     <div className="flex flex-col items-center justify-center rounded-md border border-dashed p-6 text-center animate-in fade-in-50">
       <div className="flex size-20 items-center justify-center rounded-full bg-primary/10">
@@ -15,7 +19,7 @@ const PostEmpty = () => {
         You currently dont have any Posts. Please create some so that you can
         see them right here.
       </p>
-      <CreatePostButton />
+      <CreatePostButton siteId={siteId} />
     </div>
   )
 }

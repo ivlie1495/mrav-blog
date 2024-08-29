@@ -32,13 +32,17 @@ const SiteDetailPage = async ({ params }: Props) => {
           </Link>
         </Button>
         <Button asChild>
-          <Link href={`/dashboard/sites/${siteId}/post/new`}>
+          <Link href={`/dashboard/sites/${siteId}/posts/new`}>
             <PlusCircle className="mr-2 size-4" />
             Create Post
           </Link>
         </Button>
       </div>
-      {data === undefined || data.length === 0 ? <PostEmpty /> : <h1>Hello</h1>}
+      {data === undefined || data.length === 0 ? (
+        <PostEmpty siteId={siteId} />
+      ) : (
+        <h1>Hello</h1>
+      )}
     </>
   )
 }
