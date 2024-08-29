@@ -26,6 +26,7 @@ const SiteList = ({ data }: Props) => {
             alt={item.name}
             width={400}
             height={200}
+            priority
             className="h-[200px] w-full rounded-lg object-cover"
           />
           <CardHeader>
@@ -34,7 +35,7 @@ const SiteList = ({ data }: Props) => {
           </CardHeader>
           <CardFooter>
             <Button asChild className="w-full">
-              <Link href="#">View Articles</Link>
+              <Link href={`/dashboard/sites/${item.id}`}>View Articles</Link>
             </Button>
           </CardFooter>
         </Card>
