@@ -23,7 +23,8 @@ model User {
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
 
-  Site Site[]
+  Sites Site[]
+  Posts Post[]
 }
 
 model Site {
@@ -36,4 +37,20 @@ model Site {
   updatedAt    DateTime @updatedAt
   User         User?    @relation(fields: [userId], references: [id])
   userId       String?
+  Posts        Post[]
+}
+
+model Post {
+  id          String   @id @unique @default(uuid())
+  title       String
+  slug        String   @unique
+  description String
+  content     Json
+  imageUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  Site        Site?    @relation(fields: [siteId], references: [id])
+  siteId      String?
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
 }

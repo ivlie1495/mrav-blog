@@ -1,8 +1,47 @@
-const SiteDetailPage = () => {
+import { Book, PlusCircle, Settings } from 'lucide-react'
+import Link from 'next/link'
+
+import { getPostList } from '@/actions/posts'
+import { Button } from '@/components/ui/button'
+
+interface Props {
+  params: {
+    siteId: string
+  }
+}
+
+const SiteDetailPage = async ({ params }: Props) => {
+  const { siteId } = params
+  const data = await getPostList(siteId)
+
   return (
-    <div>
-      <div>Site Detail Page</div>
-    </div>
+    <>
+      <div className="flex w-full justify-end gap-x-4">
+        <Button asChild variant="secondary">
+          <Link href="#">
+            <Book className="mr-2 size-4" />
+            View Blog
+          </Link>
+        </Button>
+        <Button asChild variant="secondary">
+          <Link href="#">
+            <Settings className="mr-2 size-4" />
+            Settings
+          </Link>
+        </Button>
+        <Button asChild>
+          <Link href="#">
+            <PlusCircle className="mr-2 size-4" />
+            Create Article
+          </Link>
+        </Button>
+      </div>
+      {data === undefined || data.length === 0 ? (
+        <h1>Empty</h1>
+      ) : (
+        <h1>Hello</h1>
+      )}
+    </>
   )
 }
 
