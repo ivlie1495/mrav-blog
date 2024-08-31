@@ -1,17 +1,13 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 
+import { Post, postSchema } from '@/schemas/post'
+import { requireAuth } from '@/utils/authentication'
 import prisma from '@/utils/db'
 
 export const getPostList = async (siteId: string) => {
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
-
-  if (!user) {
-    return redirect('/api/auth/login')
-  }
+  const user = await requireAuth()
 
   const data = await prisma.post.findMany({
     where: {
@@ -30,4 +26,28 @@ export const getPostList = async (siteId: string) => {
   })
 
   return data
+}
+
+export const createPostAction = async (siteId: string, data: Post) => {
+  const user = await requireAuth()
+
+  const submission = postSchema.safeParse(data)
+
+  if (!submission.success) {
+    return submission.error.format()
+  }
+
+  await prisma.post.create({
+    data: {
+      title: data.title,
+      slug: data.slug,
+      description: data.description,
+      content: JSON.parse(data.content),
+      imageUrl: data.imageUrl,
+      userId: user.id,
+      siteId,
+    },
+  })
+
+  return redirect(`/dashboard/sites/${siteId}`)
 }

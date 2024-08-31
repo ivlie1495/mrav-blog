@@ -1,18 +1,13 @@
 'use server'
 
 import { redirect } from 'next/navigation'
-import { getKindeServerSession } from '@kinde-oss/kinde-auth-nextjs/server'
 
-import { Site, siteSchema } from '@/schemas/site-schema'
+import { Site, siteSchema } from '@/schemas/site'
+import { requireAuth } from '@/utils/authentication'
 import prisma from '@/utils/db'
 
 export const createSiteAction = async (data: Site) => {
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
-
-  if (!user) {
-    return redirect('/api/auth/login')
-  }
+  const user = await requireAuth()
 
   const submission = siteSchema.safeParse(data)
 
@@ -20,7 +15,7 @@ export const createSiteAction = async (data: Site) => {
     return submission.error.format()
   }
 
-  const response = await prisma.site.create({
+  await prisma.site.create({
     data: {
       name: submission.data.name,
       description: submission.data.description,
@@ -33,12 +28,7 @@ export const createSiteAction = async (data: Site) => {
 }
 
 export const getSiteListAction = async () => {
-  const { getUser } = getKindeServerSession()
-  const user = await getUser()
-
-  if (!user) {
-    return redirect('/api/auth/login')
-  }
+  const user = await requireAuth()
 
   const data = await prisma.site.findMany({
     where: {

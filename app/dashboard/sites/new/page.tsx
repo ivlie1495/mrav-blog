@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { createSiteAction } from '@/actions/sites'
-import { Button } from '@/components/ui/button'
+import SubmitButton from '@/components/submit-button'
 import {
   Card,
   CardContent,
@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Site, siteSchema } from '@/schemas/site-schema'
+import { Site, siteSchema } from '@/schemas/site'
 import { useTransition } from 'react'
 
 const SiteNewPage = () => {
@@ -102,9 +102,7 @@ const SiteNewPage = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? 'Creating...' : 'Submit'}
-              </Button>
+              <SubmitButton isLoading={isLoading} />
             </CardFooter>
           </form>
         </Form>
