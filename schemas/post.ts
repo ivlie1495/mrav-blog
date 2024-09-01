@@ -5,7 +5,7 @@ export const postSchema = z.object({
   slug: z.string().min(1).max(100),
   content: z.string().min(1),
   description: z.string().min(1).max(500),
-  imageUrl: z.string().optional(),
+  imageUrl: z.string().min(1),
 })
 
 export type Post = z.infer<typeof postSchema>
