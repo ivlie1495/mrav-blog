@@ -1,6 +1,6 @@
 'use server'
 
-import { redirect } from 'next/navigation'
+import { notFound, redirect } from 'next/navigation'
 
 import { Post, postSchema } from '@/schemas/post'
 import { requireAuth } from '@/utils/authentication'
@@ -46,6 +46,63 @@ export const createPostAction = async (siteId: string, data: Post) => {
       imageUrl: data.imageUrl,
       userId: user.id,
       siteId,
+    },
+  })
+
+  return redirect(`/dashboard/sites/${siteId}`)
+}
+
+export const getPostDetail = async (postId: string, siteId: string) => {
+  const user = await requireAuth()
+
+  const data = await prisma.post.findUnique({
+    where: {
+      id: postId,
+      userId: user.id,
+      siteId,
+    },
+    select: {
+      imageUrl: true,
+      title: true,
+      description: true,
+      slug: true,
+      content: true,
+      id: true,
+    },
+  })
+
+  if (!data) {
+    return notFound()
+  }
+
+  return data
+}
+
+export const updatePostAction = async (
+  siteId: string,
+  postId: string,
+  data: Post,
+) => {
+  const user = await requireAuth()
+
+  const submission = postSchema.safeParse(data)
+
+  if (!submission.success) {
+    return submission.error.format()
+  }
+
+  await prisma.post.update({
+    where: {
+      id: postId,
+      userId: user.id,
+      siteId,
+    },
+    data: {
+      title: data.title,
+      slug: data.slug,
+      description: data.description,
+      content: JSON.parse(data.content),
+      imageUrl: data.imageUrl,
     },
   })
 

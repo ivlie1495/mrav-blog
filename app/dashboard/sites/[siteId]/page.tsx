@@ -1,11 +1,4 @@
-import {
-  Book,
-  MoreHorizontal,
-  Pencil,
-  PlusCircle,
-  Settings,
-  Trash,
-} from 'lucide-react'
+import { Book, MoreHorizontal, PlusCircle, Settings } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
