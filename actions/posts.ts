@@ -108,3 +108,18 @@ export const updatePostAction = async (
 
   return redirect(`/dashboard/sites/${siteId}`)
 }
+
+export const deletePostAction = async (siteId: string, postId: string) => {
+  const user = await requireAuth()
+
+  console.log('test teststest')
+  await prisma.post.delete({
+    where: {
+      id: postId,
+      userId: user.id,
+      siteId,
+    },
+  })
+
+  return redirect(`/dashboard/sites/${siteId}`)
+}

@@ -123,12 +123,18 @@ const SiteDetailPage = async ({ params }: Props) => {
                             <DropdownMenuSeparator />
                             <DropdownMenuItem asChild>
                               <Link
-                                href={`/dashboard/sites/${siteId}/posts/${post.id}`}
+                                href={`/dashboard/sites/${siteId}/posts/${post.id}/edit`}
                               >
                                 Edit
                               </Link>
                             </DropdownMenuItem>
-                            <DropdownMenuItem>Delete</DropdownMenuItem>
+                            <DropdownMenuItem asChild>
+                              <Link
+                                href={`/dashboard/sites/${siteId}/posts/${post.id}/delete`}
+                              >
+                                Delete
+                              </Link>
+                            </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
                       </TableCell>
